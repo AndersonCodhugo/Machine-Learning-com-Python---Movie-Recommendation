@@ -9,7 +9,14 @@ nltk.download('punkt_tab')
 nltk.download('stopwords')
 
 df = pd.read_csv("IMDB_Top250Engmovies2_OMDB_Detailed.csv")
+
+st.title("Sistema de Recomendação de Filmes")
+
+st.subheader("Planilha com 250 filmes")
+
 st.dataframe(df)
+
+
 
 #Tratamento de Dados
 df['clean_plot'] = df['Plot'].str.lower()
@@ -73,7 +80,6 @@ def recommend_movies(title):
     return movies
 
 #Interface do Streamlit
-st.title("Sistema de Recomendação de Filmes")
 
 filme_input = st.text_input("Digite o nome de um filme para obter recomendações:")
 
