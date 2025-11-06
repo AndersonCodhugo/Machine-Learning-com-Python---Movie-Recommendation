@@ -15,7 +15,7 @@ st.title("Sistema de Recomendação de Filmes")
 
 st.subheader("Planilha com 250 filmes")
 
-st.dataframe(df)
+st.dataframe(df['Title'])
 
 
 
@@ -87,17 +87,21 @@ def recommend_movies(title):
 
 #Interface Visual do Streamlit
 
-filme_input = st.text_input("Digite o nome de um filme para obter recomendações:")
+from time import sleep
 
-if st.button('Recomendar Filmes'):
-    if filme_input:
-        try:
-            recommended_list = recommend_movies(filme_input)
-            st.subheader(f"Filmes recomendados com base em '{filme_input}':")
-            for rank, title in enumerate(recommended_list, 1):
-                st.write(f"{rank}. {title}")
-        except IndexError:
-            st.error(f'O filme "{filme_input}" não foi encontrado. Tente um filme válido.')
-    else:
-        st.warning("Por favor, digite o nome de um filme.")
+with st.form("formulario_recomendacao"):
+    filme_input = st.text_input("Digite o nome de um filme para obter recomendações:")
 
+    submitted = st.form_submit_button('Recomendar Filmes')
+    if submitted:
+        if filme_input:
+            try:
+                recommended_list = recommend_movies(filme_input)
+                st.subheader(f"Filmes recomendados com base em {filme_input}:")
+                for rank, title in enumerate(recommended_list, 1):
+                    st.write(f"{rank}. {title}")
+                    sleep(0.4)
+            except IndexError:
+                st.error(f'O filme "{filme_input}" não foi encontrado. Tente um filme válido.')
+        else:
+            st.warning("Por favor, digite o nome de um filme.")
