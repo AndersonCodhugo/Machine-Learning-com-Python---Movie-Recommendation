@@ -5,6 +5,10 @@ import nltk
 from sklearn.feature_extraction.text import TfidfVectorizer
 import streamlit as st
 from time import sleep
+import qrcode
+
+img = qrcode.make('https://projetounitmachinelearning.streamlit.app/')
+img.save('qrcode.png')
 
 #baixando bibliotecas nltk de tokenização e stopwords
 nltk.download('punkt_tab')
@@ -86,7 +90,6 @@ def recommend_movies(title):
         movies.append(df['Title'][i])
     return movies
 
-print(meu)
 
 #Interface Visual do Streamlit
 
