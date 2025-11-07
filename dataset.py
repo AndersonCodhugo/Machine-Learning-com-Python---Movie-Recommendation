@@ -4,19 +4,20 @@ import re
 import nltk
 from sklearn.feature_extraction.text import TfidfVectorizer
 import streamlit as st
+from time import sleep
 
 #baixando bibliotecas nltk de tokenização e stopwords
 nltk.download('punkt_tab')
 nltk.download('stopwords')
 
 df = pd.read_csv("IMDB_Top250Engmovies2_OMDB_Detailed.csv")
-
 st.title("Sistema de Recomendação de Filmes")
 
 st.subheader("Planilha com 250 filmes")
 
 st.dataframe(df['Title'])
 
+st.set_page_config(layout="wide", page_title="Sistema de Recomendação de Filmes")
 
 
 #Tratamento de Dados
@@ -85,9 +86,9 @@ def recommend_movies(title):
         movies.append(df['Title'][i])
     return movies
 
-#Interface Visual do Streamlit
+print(meu)
 
-from time import sleep
+#Interface Visual do Streamlit
 
 with st.form("formulario_recomendacao"):
     filme_input = st.text_input("Digite o nome de um filme para obter recomendações:")
@@ -97,7 +98,7 @@ with st.form("formulario_recomendacao"):
         if filme_input:
             try:
                 recommended_list = recommend_movies(filme_input)
-                st.subheader(f"Filmes recomendados com base em {filme_input}:")
+                st.subheader(f"Se você gostou de {filme_input} vai gostar desses:")
                 for rank, title in enumerate(recommended_list, 1):
                     st.write(f"{rank}. {title}")
                     sleep(0.4)
